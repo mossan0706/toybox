@@ -21,7 +21,7 @@ package package1;
  * ＜参考＞<br>
  * クラス BufferedImage<br>
  *   https://docs.oracle.com/javase/jp/7/api/java/awt/image/BufferedImage.html
- * @author あおき
+ * @author mossan
  *
  */
 public class ImageExchange {

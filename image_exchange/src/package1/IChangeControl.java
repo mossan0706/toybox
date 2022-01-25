@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * 変換処理を行うクラスが実装する物を記述したインタフェイス
- * @author あおき
+ * @author mossan
  */
 public interface IChangeControl{
 	/**

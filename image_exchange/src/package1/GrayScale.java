@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  * <br>
  * グレースケール化<br>
  * 　https://mementoo.info/archives/1617
- * @author あおき
+ * @author mossan
  */
 public class GrayScale extends DisPixel implements IChangeControl{
 

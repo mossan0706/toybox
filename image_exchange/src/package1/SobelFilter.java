@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  * ＜参考＞<br>
  * ソーベルフィルタ<br>
  * 　https://pgsample.info/image/filter/sobel.html
- * @author あおき
+ * @author mossan
  */
 public class SobelFilter extends DisPixel implements IChangeControl {
 

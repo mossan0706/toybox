@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 /**
  * BufferedImageをjpegで保存する<br>
  * ファイルパスをコマンドライン上に入力する形で実施する
- * @author あおき
+ * @author mossan
  */
 public class SaveJpeg {
 
