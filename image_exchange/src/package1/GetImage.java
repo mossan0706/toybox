@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
  *BufferedImageの使い方<br>
  *　http://kamifuji.dyndns.org/JSupport/JAVA_Java2D/Java2DTest/index.html
  *
- * @author あおき
+ * @author mossan
  */
 public class GetImage {
 
