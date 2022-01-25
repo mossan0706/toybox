@@ -50,7 +50,7 @@ public class Grayscale {
 
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-        String filepass = scan.next();
+        	String filepass = scan.next();
 
 		input_image = new File(filepass);
 		width = 0;
