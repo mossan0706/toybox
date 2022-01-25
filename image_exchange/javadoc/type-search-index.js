@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"package1","l":"DisPixel"},{"p":"package1","l":"GetImage"},{"p":"package1","l":"GrayScale"},{"p":"package1","l":"IChangeControl"},{"p":"package1","l":"ImageExchange"},{"p":"package1","l":"SaveJpeg"},{"p":"package1","l":"SavePng"},{"p":"package1","l":"SobelFilter"},{"l":"すべてのクラス","u":"allclasses-index.html"}];updateSearchResults();
