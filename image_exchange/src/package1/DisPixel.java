@@ -5,7 +5,7 @@ package package1;
  * <br><br>
  * ＜参考＞<br>
  * TYPE_INT_RGBの取扱い方<br>
- * 　<a herf="https://nodamushi.hatenablog.com/entry/20111012/1318436587">https://nodamushi.hatenablog.com/entry/20111012/1318436587</a>
+ * @see https://nodamushi.hatenablog.com/entry/20111012/1318436587
  * @author mossan
  */
 public class DisPixel {
