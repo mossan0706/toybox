@@ -7,3 +7,6 @@ onedriveで同期させてやってたけど、
 ### ソーベルフィルタで画像の輪郭を抽出したいプログラム（Java）
 オブジェクト指向を無理やり理解するためにがんばった。
 正直必要ないクラスも多いけど、ほへぇー、となったのでおｋだと思う。
+[javadoc](https://mossan0706.github.io/toybox/image_exchange/javadoc/image_exchange/module-summary.html)
+[ソースコード](https://github.com/mossan0706/toybox/tree/main/image_exchange/src/package1)
+
