@@ -88,7 +88,7 @@ public class SobelFilter extends DisPixel implements IChangeControl {
 
 				//閾値として画素値を設定する（１～２５４）
 				//ここの値を変えると、エッジ検出の感度が変わる
-				if(x_multiply > 25 || y_multiply > 25) {
+				if(x_multiply > 40 || y_multiply > 40) {
 					int newcolor = (255 << 16) + (255 << 8) + 255;
 					exchange.setRGB(x, y, newcolor);
 				}else {
