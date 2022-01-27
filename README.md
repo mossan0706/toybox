@@ -19,7 +19,7 @@ onedriveで同期させてやってたけど、
 ## FizzBuzzに少し柔軟性を持たせたプログラム（Java）
 動作確認兼暇つぶしに作った。  
 わかりやすさ重視のため、少しループに冗長的なところがある(ﾟ∀ﾟ)  
-- [javadoc](https://github.com/mossan0706/toybox/blob/main/java%E3%81%AE%E3%81%94%E3%81%A1%E3%82%83%E3%81%94%E3%81%A1%E3%82%83%E3%83%A1%E3%83%A2/%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E7%94%A8/Test/doc/index.html)
+- [javadoc](https://mossan0706.github.io/toybox/java%E3%81%AE%E3%81%94%E3%81%A1%E3%82%83%E3%81%94%E3%81%A1%E3%82%83%E3%83%A1%E3%83%A2/%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E7%94%A8/Test/doc/main.html)
 - [ソースコード](https://github.com/mossan0706/toybox/tree/main/java%E3%81%AE%E3%81%94%E3%81%A1%E3%82%83%E3%81%94%E3%81%A1%E3%82%83%E3%83%A1%E3%83%A2/%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E7%94%A8/Test/src)  
 
 <やりたいこと>
