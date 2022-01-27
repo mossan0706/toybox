@@ -26,7 +26,7 @@ public class main {
 
 	/**
 	 * メインメソッド
-	 * 
+	 *  
 	 * @param args 未使用
 	 */
 	public static void main(String[] args) {
