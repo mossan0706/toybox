@@ -79,18 +79,18 @@ class Observation{
 
         };
 
-        this.observe( this.NTERVAL, this.onGet, this.onChanged );
+        this.observe( this.INTERVAL, this.onGet, this.onChanged );
     }
 
     /**
-     *
+     * 引数の情報をもとにタイマーを発生させ監視を行う
      *
      * @param {int} interval - 値の監視間隔（ミリ秒）
      * @param {*} onGet - 現在保持している値
      * @param {*} onChanged - 変更後の値
      * @memberof Observation
      */
-    observe( interval, onGet, onChanged ) {
+    observe( INTERVAL, onGet, onChanged ) {
         let previousValue   = onGet();
         const onObserve     = function() {
             const VALUE = onGet();
@@ -100,7 +100,7 @@ class Observation{
             previousValue = VALUE;
         };
 
-        setInterval( onObserve, interval );
+        setInterval( onObserve, INTERVAL );
     }
 
 }
@@ -121,7 +121,7 @@ let meter = null;
 /** @type {Observation} - 変数監視クラスのインスタンスを保持 */
 let ins;
 
-/** @type {String} - 計算中の結果の挿入先idを保持* /
+/** @type {String} - 計算中の結果の挿入先idを保持 */
 let innerId = "";
 
 /** @type {Object} - 処理のフラグ用　監視のためオブジェクト型にしているが、要はbooleanを保持したいだけ */
@@ -180,7 +180,10 @@ function main() {
                 //入力許可を受け取ったフラグを立て、計算処理を開始する
                 isConnect.authenticity = true;
         
-            }).catch(err => alert(err));
+            }).catch(err => {
+                alert("マイク入力が拒否されました。");
+                window.location.reload();
+            });
             
         } catch (error) {
             console.log("エラー")
