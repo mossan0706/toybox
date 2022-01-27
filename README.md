@@ -11,7 +11,7 @@ onedriveで同期させてやってたけど、
 正直必要ないクラスも多いけど、ほへぇー、となったのでおっけーだと思う。  
   
 アルゴリズム自体は配列の中から１個を選び、その周辺の３×３の９マスに対して順に演算をしてるだけなので簡単なもの。
-　　
+  
 - [javadoc](https://mossan0706.github.io/toybox/image_exchange/javadoc/image_exchange/module-summary.html)  
 - [ソースコード](https://github.com/mossan0706/toybox/tree/main/image_exchange/src/package1)  
 
