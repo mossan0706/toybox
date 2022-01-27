@@ -17,12 +17,12 @@ public class main {
 	/**
 	 * 割りたい値と。割り切れたときに出力したい値を格納
 	 */
-	private static Map<Integer, String>wordMap = new HashMap();
+	private static Map<Integer, String>wordMap = new HashMap<Integer, String>();
 
 	/**
 	 * 結果を格納（｛値：結果｝
 	 */
-	private static Map<Integer, String>ans = new HashMap<>();
+	private static Map<Integer, String>ans = new HashMap<Integer, String>();
 
 	/**
 	 * メインメソッド
@@ -31,7 +31,7 @@ public class main {
 	 */
 	public static void main(String[] args) {
 
-		//割りたい値と出力文字列wセット
+		//割りたい値と出力文字列をセット
 		wordMap.put(3, "Fizz");
 		wordMap.put(5, "Buzz");
 		wordMap.put(6, "Foo");
@@ -55,8 +55,8 @@ public class main {
 	 * <p>あらかじめwordMapにキャッチする値とそれに充てる文字列を格納する必要がある<br>
 	 * 解答はansに保存される</p>
 	 * 
-	 * @param START 計算を始める値を保持
-	 * @param END どこまで計算するかの値を保持
+	 * @param START - 計算を始める値を保持
+	 * @param END - どこまで計算するかの値を保持
 	 */
 	public static void calcFizzBuzz(final int START ,final int END) {
 		
