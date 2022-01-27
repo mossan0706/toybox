@@ -17,7 +17,7 @@
  */
  function innerHtml(id, prm) {
     if (id != null) {
-        document.getElementById(id).innerHTML = prm
+        document.getElementById(id).innerHTML = prm;
     }
 }
 
@@ -186,11 +186,11 @@ function main() {
             });
             
         } catch (error) {
-            console.log("エラー")
+            console.log("エラー");
         }
         
     }else {
-        console.log("入力ソースが見つからない")
+        console.log("入力ソースが見つからない");
     }
 
 }
@@ -227,7 +227,7 @@ function calc() {
 
         innerHtml("test3", "音声取得中");
         radio(2);
-        console.log(2)
+        console.log(2);
     }, timeControl);
 
 
@@ -246,7 +246,7 @@ function calc() {
 
     //結果表示とアドバイス
     setTimeout(() => {
-        result()
+        result();
     }, timeControl);
 
     
@@ -294,35 +294,35 @@ function result(){
  * @return {AoudioContext} - 変数自身を返すことにより、無限呼び出しを実装する
  */
 function createAudioMeter(audioContext, clipLevel, averaging, clipLag) {
-    processor = audioContext.createScriptProcessor(1024)
-    processor.onaudioprocess = volumeAudioProcess
-    processor.clipping = false
-    processor.lastClip = 0
-    processor.volume = 0
-    processor.clipLevel = clipLevel || 0.98
-    processor.averaging = averaging || 0.95
-    processor.clipLag = clipLag || 750
+    processor = audioContext.createScriptProcessor(1024);
+    processor.onaudioprocess = volumeAudioProcess;
+    processor.clipping = false;
+    processor.lastClip = 0;
+    processor.volume = 0;
+    processor.clipLevel = clipLevel || 0.98;
+    processor.averaging = averaging || 0.95;
+    processor.clipLag = clipLag || 750;
   
     // chromeのバグ回避用　入力を直接出力する際のコード
     processor.connect(audioContext.destination)
   
     processor.checkClipping = function () {
         if (!this.clipping) {
-            return false
+            return false;
         }
         if ((this.lastClip + this.clipLag) < window.performance.now()) {
-            this.clipping = false
+            this.clipping = false;
         }
-        return this.clipping
+        return this.clipping;
     }
   
     //シャットダウン時に呼び出し
     processor.shutdown = function () {
-      this.disconnect()
-      this.onaudioprocess = null
+      this.disconnect();
+      this.onaudioprocess = null;
     }
   
-    return processor
+    return processor;
 }
 
 
@@ -348,15 +348,15 @@ let volume = 0;
  * @param {AudioBuffer} event - メモリ上に確保されたバッファ
  */
 function volumeAudioProcess(event) {
-    const buf = event.inputBuffer.getChannelData(0)
-    const bufLength = buf.length
-    let sum = 0
-    let x
+    const buf = event.inputBuffer.getChannelData(0);
+    const bufLength = buf.length;
+    let sum = 0;
+    let x;
     
     //入力値に対して相加平均の2条の平方根をとる
     //まずは相加平均の2乗の処理
     for (var i = 0; i < bufLength; i++) {
-        x = buf[i]
+        x = buf[i];
         if (Math.abs(x) >= this.clipLevel) {
             this.clipping = true;
             this.lastClip = window.performance.now();
