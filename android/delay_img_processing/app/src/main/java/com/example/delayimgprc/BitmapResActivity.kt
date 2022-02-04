@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import com.example.delayimgprc.databinding.ActivityBitmapResBinding
+import kotlin.lazy as lazy
 
 class BitmapResActivity : AppCompatActivity() {
     /** バインディング */
@@ -26,44 +27,47 @@ class BitmapResActivity : AppCompatActivity() {
     private val handler = Handler()
 
     /** 処理中の画像のy座標を保持 */
-    private var calcH = 0
+    private var calcX = 0
 
     /**
      * 遅延処理を実装する
      */
-    private val runnable = object: Runnable{
+    private val runnable: Runnable by lazy {
+        object: Runnable{
         override fun run() {
 
-            grayScale(originImg, calcH)
+            //１行のグレースケール化を実行
+            grayScale(originImg, calcX)
 
+            //イメージビューに挿入
             binding.imageView3.setImageBitmap(changeImg)
 
-            if(changeImg.height > calcH){
+            //処理中のx座標が画像の高さ以下の場合、１ミリ秒ずらして上記処理を続ける
+            if(calcX < changeImg.height){
                 handler.postDelayed(this, 1)
             }
         }
     }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //バインディングの設定
         binding = ActivityBitmapResBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //受け取ったURIをBitmapに
         this.uri = intent.getParcelableExtra("uri")
         this.originImg = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
 
-
+        //変換後の画像を保持するためのBitmapを生成
         this.changeImg = Bitmap.createBitmap(
             originImg.width,
             originImg.height,
             Bitmap.Config.ARGB_8888)
 
-        binding.imageView3.setImageBitmap(originImg)
-
-
-        grayScale(originImg, this.calcH)
-        this.calcH++
-
+        //ハンドラーに遅延処理させたいやつをセット
         handler.post(runnable)
 
         //メインアクティビティに戻るボタン
@@ -74,7 +78,7 @@ class BitmapResActivity : AppCompatActivity() {
 
 
     /**
-     * グレースケール化を行う
+     * Bitmap中、1行分のグレースケール化を行う
      *
      * @param originImg 変換前のBitmap画像
      * @param y 処理中のBitmapのx座標を保持
@@ -85,8 +89,7 @@ class BitmapResActivity : AppCompatActivity() {
         var calcPix: Int
         var grayAve: Int
 
-
-        //画像の幅ループ
+        //画像のx座標ループ
         for (x in 0 until width step 1) {
             calcPix = originImg.getPixel(x, y)
             grayAve = (Color.red(calcPix) + Color.green(calcPix) + Color.blue(calcPix)) / 3
@@ -94,6 +97,7 @@ class BitmapResActivity : AppCompatActivity() {
             changeImg.setPixel(x, y, Color.rgb(grayAve, grayAve, grayAve))
         }
 
-        this.calcH++
+        //処理済みのy座標ポインタをインクリメント
+        this.calcX++
     }
 }
