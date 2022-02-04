@@ -5,53 +5,95 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import com.example.delayimgprc.databinding.ActivityBitmapResBinding
 
 class BitmapResActivity : AppCompatActivity() {
-
+    /** バインディング */
     private lateinit var binding: ActivityBitmapResBinding
+
+    //null許容だけど、インテント受け渡し前にnull判定しているので、nullはあり得ない
+    /** メインアクティビティから受け取ったURIを保持 */
+    private var  uri: Uri? = null
+
+    /** 変換前の画像を保持 */
+    private lateinit var originImg: Bitmap
+    /** 変換後の画像を保持 */
+    private lateinit var changeImg: Bitmap
+
+    /** 遅延処理のためのハンドラーを保持 */
+    private val handler = Handler()
+
+    /** 処理中の画像のy座標を保持 */
+    private var calcH = 0
+
+    /**
+     * 遅延処理を実装する
+     */
+    private val runnable = object: Runnable{
+        override fun run() {
+
+            grayScale(originImg, calcH)
+
+            binding.imageView3.setImageBitmap(changeImg)
+
+            if(changeImg.height > calcH){
+                handler.postDelayed(this, 1)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBitmapResBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //null許容だけど、インテント受け渡し前にnull判定しているので、nullはあり得ない
-        var uri: Uri? = intent.getParcelableExtra("uri")
-        var originImg: Bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
-        var changeImg: Bitmap = Bitmap.createBitmap(originImg)
+        this.uri = intent.getParcelableExtra("uri")
+        this.originImg = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
 
-        binding.imageView3.setImageBitmap(originImg)
 
-        grayScale(originImg)
-    }
-
-    private fun grayScale(originImg: Bitmap) {
-        var changeImg: Bitmap = Bitmap.createBitmap(
+        this.changeImg = Bitmap.createBitmap(
             originImg.width,
             originImg.height,
             Bitmap.Config.ARGB_8888)
 
+        binding.imageView3.setImageBitmap(originImg)
+
+
+        grayScale(originImg, this.calcH)
+        this.calcH++
+
+        handler.post(runnable)
+
+        //メインアクティビティに戻るボタン
+        binding.returnButton.setOnClickListener{
+            finish()
+        }
+    }
+
+
+    /**
+     * グレースケール化を行う
+     *
+     * @param originImg 変換前のBitmap画像
+     * @param y 処理中のBitmapのx座標を保持
+     */
+    private fun grayScale(originImg: Bitmap, y: Int ) {
 
         val width: Int = changeImg.width
-        val height: Int = changeImg.height
-
-
         var calcPix: Int
         var grayAve: Int
 
-        //画像の高さループ
-        for(j in 0..height - 1 step 1) {
-            //画像の幅ループ
-            for (i in 0..width - 1 step 1) {
-                calcPix = originImg.getPixel(i, j)
-                grayAve = (Color.red(calcPix) + Color.green(calcPix) + Color.blue(calcPix)) / 3
 
-                changeImg.setPixel(i, j, Color.rgb(grayAve, grayAve, grayAve))
+        //画像の幅ループ
+        for (x in 0 until width step 1) {
+            calcPix = originImg.getPixel(x, y)
+            grayAve = (Color.red(calcPix) + Color.green(calcPix) + Color.blue(calcPix)) / 3
 
-                binding.imageView3.setImageBitmap(changeImg)
-            }
+            changeImg.setPixel(x, y, Color.rgb(grayAve, grayAve, grayAve))
         }
+
+        this.calcH++
     }
 }
