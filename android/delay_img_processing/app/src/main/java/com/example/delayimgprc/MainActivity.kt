@@ -15,8 +15,8 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val RECORD_REQUEST_CODE = 1000
-    private val REQUEST_GALLERY_TAKE = 2
+    private val RECORD_REQUEST_CODE: Int = 1000
+    private val REQUEST_GALLERY_TAKE: Int = 2
 
     private lateinit var uri: Uri
 
