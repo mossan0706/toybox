@@ -2,12 +2,15 @@ package com.example.delayimgprc
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.icu.number.IntegerWidth
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import com.example.delayimgprc.databinding.ActivityBitmapResBinding
+import kotlin.properties.Delegates
+import kotlin.collections.ArrayList as ArrayList1
 import kotlin.lazy as lazy
 
 class BitmapResActivity : AppCompatActivity() {
@@ -26,28 +29,35 @@ class BitmapResActivity : AppCompatActivity() {
     /** 遅延処理のためのハンドラーを保持 */
     private val handler = Handler()
 
-    /** 処理中の画像のy座標を保持 */
-    private var calcX = 0
+    /** 分割数を保持 */
+    private var split: Int = 10
+
+    /** 処理中のy座標を保持 */
+    private  var spList: MutableList<Int> = mutableListOf()
+
 
     /**
      * 遅延処理を実装する
      */
     private val runnable: Runnable by lazy {
         object: Runnable{
-        override fun run() {
+            override fun run() {
 
-            //１行のグレースケール化を実行
-            grayScale(originImg, calcX)
+                for (y in 0 until spList.size){
+                    //指定された部うかつ行だけのグレースケール化を実行
+                    grayScale(originImg, spList[y])
+                    spList[y]++
+                }
 
-            //イメージビューに挿入
-            binding.imageView3.setImageBitmap(changeImg)
+                //イメージビューに挿入
+                binding.imageView3.setImageBitmap(changeImg)
 
-            //処理中のx座標が画像の高さ以下の場合、１ミリ秒ずらして上記処理を続ける
-            if(calcX < changeImg.height){
-                handler.postDelayed(this, 1)
+                //処理中のx座標が画像の高さ以下の場合、１ミリ秒ずらして上記処理を続ける
+                if(spList[spList.size - 1] < changeImg.height){
+                    handler.postDelayed(this, 1)
+                }
             }
         }
-    }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +76,17 @@ class BitmapResActivity : AppCompatActivity() {
             originImg.width,
             originImg.height,
             Bitmap.Config.ARGB_8888)
+
+        //分割数を取得
+
+
+        //画像高さを分割数で割り、処理開始位置を指定
+        spList.add(0)
+
+        for (i in 1 until split){
+            spList.add( ( (originImg.height / split ) * i ).toInt() )
+        }
+
 
         //ハンドラーに遅延処理させたいやつをセット
         handler.post(runnable)
@@ -97,7 +118,5 @@ class BitmapResActivity : AppCompatActivity() {
             changeImg.setPixel(x, y, Color.rgb(grayAve, grayAve, grayAve))
         }
 
-        //処理済みのy座標ポインタをインクリメント
-        this.calcX++
     }
 }

@@ -12,9 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/startButton"
-        app:layout_constraintEnd_toStartOf="@+id/startButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/startButton">
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
             android:id="@+id/image"
@@ -38,20 +36,28 @@
     <Button
         android:id="@+id/startButton"
         android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="48dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="20dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/radioGroup" />
 
+    <EditText
+        android:id="@+id/splitInt"
+        android:layout_width="151dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintEnd_toEndOf="@+id/startButton"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.837" />
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="413dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,5 +65,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.38"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分割処理数指定"
+        app:layout_constraintBottom_toTopOf="@+id/splitInt"
+        app:layout_constraintEnd_toEndOf="@+id/splitInt"
+        app:layout_constraintStart_toStartOf="@+id/splitInt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

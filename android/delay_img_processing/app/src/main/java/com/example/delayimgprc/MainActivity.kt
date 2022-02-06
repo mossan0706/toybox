@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import com.example.delayimgprc.databinding.ActivityMainBinding
 import java.lang.Exception
 
@@ -27,6 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         //メディアへのアクセス許可を取得
         setupPermissions()
+
+//        val preference = PreferenceManager.getDefaultSharedPreferences(this)
+//        val split = preference.getInt("sp_num", 2)
+//
+//        binding.splitInt.setText(split)
 
         //ラジオボタンが選択された時のテキスト変更
         binding.radioGroup.setOnCheckedChangeListener{ _, checkedId ->
@@ -62,9 +68,16 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * 画像加工のため、別画面に遷移する
+     * uriが選択されていない場合は処理（画面遷移）を開始しない
      */
     private fun startChange() {
         if (::uri.isInitialized){
+//            val preference = PreferenceManager.getDefaultSharedPreferences(this)
+//            preference.edit{
+//
+//            }
+
+
             val intent = Intent(applicationContext, BitmapResActivity::class.java)
             intent.putExtra("uri", uri)
             startActivity(intent)
@@ -135,7 +148,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupPermissions() {
         val permission = ContextCompat.checkSelfPermission(
             this,
-            Manifest.permission.READ_EXTERNAL_STORAGE)
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
