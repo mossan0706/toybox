@@ -2,15 +2,14 @@ package com.example.delayimgprc
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.icu.number.IntegerWidth
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
+import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import com.example.delayimgprc.databinding.ActivityBitmapResBinding
-import kotlin.properties.Delegates
-import kotlin.collections.ArrayList as ArrayList1
 import kotlin.lazy as lazy
 
 class BitmapResActivity : AppCompatActivity() {
@@ -30,7 +29,7 @@ class BitmapResActivity : AppCompatActivity() {
     private val handler = Handler()
 
     /** 分割数を保持 */
-    private var split: Int = 10
+    private var split: Int = 100
 
     /** 処理中のy座標を保持 */
     private  var spList: MutableList<Int> = mutableListOf()
@@ -78,13 +77,21 @@ class BitmapResActivity : AppCompatActivity() {
             Bitmap.Config.ARGB_8888)
 
         //分割数を取得
+        val preference = PreferenceManager.getDefaultSharedPreferences(this)
+        this.split = preference.getInt("sp_num", 3)
 
+        //共有プリファレンスから取得した値が高さをオーバーしていた場合、
+        //画像の高さを分割数に指定する
+        if(split >= originImg.height){
+            this.split = originImg.height - 1
+
+        }
 
         //画像高さを分割数で割り、処理開始位置を指定
         spList.add(0)
 
-        for (i in 1 until split){
-            spList.add( ( (originImg.height / split ) * i ).toInt() )
+        for (i in 1 until this.split){
+            this.spList.add( ( (originImg.height / this.split ) * i ).toInt() )
         }
 
 

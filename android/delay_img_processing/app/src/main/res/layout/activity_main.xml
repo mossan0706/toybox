@@ -35,9 +35,10 @@
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="150dp"
-        android:layout_height="61dp"
+        android:layout_width="124dp"
+        android:layout_height="56dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,14 +46,15 @@
 
     <EditText
         android:id="@+id/splitInt"
-        android:layout_width="151dp"
-        android:layout_height="40dp"
+        android:layout_width="77dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="numberSigned"
         app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="@+id/startButton"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.837" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <ImageView
         android:id="@+id/imageView"

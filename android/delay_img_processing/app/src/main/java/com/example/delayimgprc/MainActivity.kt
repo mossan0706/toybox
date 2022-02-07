@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.example.delayimgprc.databinding.ActivityMainBinding
 import java.lang.Exception
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var uri: Uri
 
+    private var split: Int? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -29,10 +32,11 @@ class MainActivity : AppCompatActivity() {
         //メディアへのアクセス許可を取得
         setupPermissions()
 
-//        val preference = PreferenceManager.getDefaultSharedPreferences(this)
-//        val split = preference.getInt("sp_num", 2)
-//
-//        binding.splitInt.setText(split)
+        //共有プリファレンスから分割数を取得
+        val preference = PreferenceManager.getDefaultSharedPreferences(this)
+        this.split = preference.getInt("sp_num", 3)
+
+        binding.splitInt.setText(split.toString())
 
         //ラジオボタンが選択された時のテキスト変更
         binding.radioGroup.setOnCheckedChangeListener{ _, checkedId ->
@@ -72,15 +76,16 @@ class MainActivity : AppCompatActivity() {
      */
     private fun startChange() {
         if (::uri.isInitialized){
-//            val preference = PreferenceManager.getDefaultSharedPreferences(this)
-//            preference.edit{
-//
-//            }
-
+            //指定された分割数を共有プリファレンスに保存する
+            val preference = PreferenceManager.getDefaultSharedPreferences(this)
+            preference.edit{
+                putInt("sp_num", binding.splitInt.text.toString().toInt())
+            }
 
             val intent = Intent(applicationContext, BitmapResActivity::class.java)
             intent.putExtra("uri", uri)
             startActivity(intent)
+
         } else {
             //エラーメッセージ
             Toast.makeText(
